@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -13,21 +14,21 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty
+    @Column(nullable = false)
     private String firstName;
-    @NotEmpty
+    @Column(nullable = false)
     private String lastName;
-    @Column(unique = true)
-    @NotEmpty
+    @Column(unique = true, nullable = false)
     private String cpf;
-    @NotNull(message = "Email obrigátorio")
+    @Column(nullable = false)
     private String email;
-    @NotEmpty
+    @Column(nullable = false)
     private String telephone;
-    @NotEmpty
+    @Column(nullable = false)
     private String password;
     private Integer balance;
     private boolean admin;
