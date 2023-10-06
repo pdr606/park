@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pdr.parking.dto.UserRequestDto;
 import pdr.parking.exceptions.UserDuplicateException;
+import pdr.parking.exceptions.UserNotFoundException;
 import pdr.parking.mapper.UserMapper;
-import pdr.parking.model.User;
+import pdr.parking.entities.User;
 import pdr.parking.repository.UserRepository;
 
 
@@ -15,15 +16,12 @@ public class UserService implements UserGateway {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    UserMapper userMapper;
-
     public void createUser(UserRequestDto userRequestDto) {
-        if(!userRepository.existsByCpf(userRequestDto.getCpf())){
-            userRepository.save(userMapper.toEntity(userRequestDto));
+        if(!userRepository.existsByCpf(userRequestDto.cpf())){
+            userRepository.save(UserMapper.toEntity(userRequestDto));
             return;
         }
-        throw new UserDuplicateException(userRequestDto.getCpf());
+        throw new UserDuplicateException(userRequestDto.cpf());
     }
 
     @Override
@@ -39,5 +37,11 @@ public class UserService implements UserGateway {
     @Override
     public void deleteUser(Long id) {
 
+    }
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(() ->
+            new UserNotFoundException()
+                );
     }
 }

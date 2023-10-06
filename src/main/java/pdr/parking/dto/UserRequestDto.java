@@ -1,16 +1,15 @@
 package pdr.parking.dto;
 
-import lombok.Data;
+import org.hibernate.validator.constraints.br.CPF;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
-@Data
-public class UserRequestDto {
-    private String firstName;
-    private String lastName;
-    private String cpf;
-    @NotNull(message = "Email obrigátorio")
-    private String email;
-    private String telephone;
-    private String password;
-}
+
+public record UserRequestDto(String firstName,
+                             String lastName,
+                             String cpf,
+                             String email,
+                             String telephone,
+                             String password
+)
+{}
