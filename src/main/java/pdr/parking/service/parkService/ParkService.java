@@ -1,6 +1,7 @@
 package pdr.parking.service.parkService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pdr.parking.dto.parkDto.ParkingRequestDto;
 import pdr.parking.entities.Park;
@@ -9,6 +10,10 @@ import pdr.parking.entities.Vehicle;
 import pdr.parking.repository.ParkRepository;
 import pdr.parking.service.userService.UserService;
 import pdr.parking.service.vehicleService.VehicleService;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.List;
 
 @Service
 public class ParkService implements ParkGateway {
@@ -44,5 +49,17 @@ public class ParkService implements ParkGateway {
         return parkRepository.save(new Park(parkingRequestDto.totalTime(),
                 user,
                 vehicle));
+    }
+
+    @Override
+    @Scheduled(fixedRate = 5000)
+    public void checkExpiration() {
+        List<Park> parkList = parkRepository.filterExpiredPark();
+
+        for (Park park : parkList){
+            if(LocalDateTime.now(ZoneId.of("America/Sao_Paulo")).isAfter(park.getExpirationAt())){
+                parkRepository.delete(park);
+            }
+        }
     }
 }

@@ -6,4 +6,6 @@ import pdr.parking.entities.Park;
 public interface ParkGateway {
 
     Park generatePark(ParkingRequestDto parkingRequestDto);
+
+    void checkExpiration();
 }
