@@ -37,4 +37,15 @@ public class Vehicle {
     @JsonIgnore
     private Park park;
 
+    public Vehicle(String plate, boolean foreignPlate, String brand,
+                   String model, VehicleType vehicleType, User user){
+        this.plate = plate;
+        this.foreignPlate = foreignPlate;
+        this.brand = brand;
+        this.model = model;
+        this.vehicleType = vehicleType;
+        this.user = user;
+
+    }
+
 }

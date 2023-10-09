@@ -1,4 +1,4 @@
-package pdr.parking.dto;
+package pdr.parking.dto.vehicleDto;
 
 import pdr.parking.entities.enums.VehicleType;
 

@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import pdr.parking.dto.UserRequestDto;
-import pdr.parking.dto.VehicleRequestDto;
-import pdr.parking.service.userService.UserService;
-import pdr.parking.service.vehicleService.VehicleGateway;
+import pdr.parking.dto.vehicleDto.VehicleRequestDto;
 import pdr.parking.service.vehicleService.VehicleService;
 
 @RestController

@@ -2,13 +2,14 @@ package pdr.parking.service.vehicleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pdr.parking.dto.VehicleRequestDto;
+import pdr.parking.dto.vehicleDto.VehicleRequestDto;
 import pdr.parking.entities.User;
 import pdr.parking.entities.Vehicle;
 import pdr.parking.exceptions.UserNotFoundException;
-import pdr.parking.mapper.VehicleMapper;
 import pdr.parking.repository.VehicleRepository;
 import pdr.parking.service.userService.UserService;
+
+import java.util.Optional;
 
 @Service
 public class VehicleService implements VehicleGateway {
@@ -27,7 +28,12 @@ public class VehicleService implements VehicleGateway {
     @Override
     public void registerVehicle(VehicleRequestDto vehicleRequestDto) {
         User user = userService.findById(vehicleRequestDto.userId());
-        vehicleRepository.save(VehicleMapper.toEntity(vehicleRequestDto, user));
+        vehicleRepository.save(new Vehicle(vehicleRequestDto.plate(),
+                vehicleRequestDto.foreignPlate(),
+                vehicleRequestDto.brand(),
+                vehicleRequestDto.model(),
+                vehicleRequestDto.vehicleType(),
+                user));
     }
 
     @Override
@@ -37,5 +43,11 @@ public class VehicleService implements VehicleGateway {
                         new UserNotFoundException()
                 );
 
+    }
+
+    @Override
+    public void deleteVehicle(Long id) {
+        Optional<Vehicle> vehicle = vehicleRepository.findById(id);
+        vehicleRepository.deleteById(id);
     }
 }

@@ -4,7 +4,7 @@ package pdr.parking.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import pdr.parking.dto.ParkingRequestDto;
+import pdr.parking.dto.parkDto.ParkingRequestDto;
 import pdr.parking.entities.Park;
 import pdr.parking.service.parkService.ParkService;
 

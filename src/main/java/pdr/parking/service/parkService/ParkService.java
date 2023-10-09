@@ -2,7 +2,7 @@ package pdr.parking.service.parkService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pdr.parking.dto.ParkingRequestDto;
+import pdr.parking.dto.parkDto.ParkingRequestDto;
 import pdr.parking.entities.Park;
 import pdr.parking.entities.User;
 import pdr.parking.entities.Vehicle;
@@ -41,7 +41,8 @@ public class ParkService implements ParkGateway {
     public Park generatePark(ParkingRequestDto parkingRequestDto) {
         User user = userService.findById(parkingRequestDto.userId());
         Vehicle vehicle = vehicleService.findById(parkingRequestDto.vehicleId());
-        Park parking = Park.createPark(user, vehicle, parkingRequestDto.totalTime());
-        return parkRepository.save(parking);
+        return parkRepository.save(new Park(parkingRequestDto.totalTime(),
+                user,
+                vehicle));
     }
 }

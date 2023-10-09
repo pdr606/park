@@ -1,6 +1,7 @@
 package pdr.parking.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,14 +35,10 @@ public class Park {
     @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
     private Vehicle vehicle;
 
-    public static Park createPark(User user, Vehicle vehicle, Integer totalTime){
-        return new Park(
-                null,
-                LocalDateTime.now(),
-                totalTime,
-                true,
-                user,
-                vehicle
-        );
+    public Park(Integer totalTime, User user, Vehicle vehicle){
+        this.totalTime = totalTime;
+        this.createdAt = LocalDateTime.now();
+        this.user = user;
+        this.vehicle = vehicle;
     }
 }
