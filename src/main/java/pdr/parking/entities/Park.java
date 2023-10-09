@@ -20,7 +20,11 @@ public class Park {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
+    @JsonFormat(pattern = "dd-MM-yyyy@HH:mm:ss", locale = "pt-BR")
     private LocalDateTime createdAt;
+    @Column(nullable = false)
+    @JsonFormat(pattern = "dd-MM-yyyy@HH:mm:ss", locale = "pt-BR")
+    private LocalDateTime expirationAt;
     @Column(nullable = false)
     private Integer totalTime;
     @Column(nullable = false)
@@ -38,6 +42,7 @@ public class Park {
     public Park(Integer totalTime, User user, Vehicle vehicle){
         this.totalTime = totalTime;
         this.createdAt = LocalDateTime.now();
+        this.expirationAt = LocalDateTime.now().plusMinutes(totalTime);
         this.user = user;
         this.vehicle = vehicle;
     }
