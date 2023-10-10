@@ -37,6 +37,9 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Park> parks = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<TrafficTicket> trafficTickets = new ArrayList<>();
+
     public User(String firstName, String lastName, String cpf,
                 String email, String telephone, String password){
         this.firstName = firstName;
