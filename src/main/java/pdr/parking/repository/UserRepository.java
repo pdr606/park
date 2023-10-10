@@ -11,7 +11,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByCpf(String cpf);
 
-    @Query("SELECT u FROM User u WHERE EXISTS (SELECT v FROM Vehicle v WHERE v.user = u AND v.plate = ?1)")
-    User findUserByVehiclePlate(String plate);
+    @Query("SELECT u FROM User u JOIN u.vehicles v WHERE v.plate = ?1")
+    User findUserByVehiclePlate( String plate);
+
 
 }

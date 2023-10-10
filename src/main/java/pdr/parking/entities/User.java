@@ -1,17 +1,17 @@
 package pdr.parking.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString(exclude = {"vehicles", "parks", "trafficTickets"})
 public class User {
 
     @Id

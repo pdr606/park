@@ -23,9 +23,9 @@ public class TrafficTicketService implements TrafficTicketGetaway {
 
     @Override
     public TrafficTicket generateTrafficTicket(User user, Vehicle vehicle){
-        return new TrafficTicket(
+        return trafficTicketRepository.save(new TrafficTicket(
                 user,
-                vehicle
+                vehicle)
         );
     }
 }

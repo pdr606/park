@@ -70,10 +70,9 @@ public class ParkService implements ParkGateway {
         for (Park park : parkList){
             if(LocalDateTime.now(ZoneId.of("America/Sao_Paulo"))
                     .isAfter(park.getExpirationAt())){
-                trafficTicketService.generateTrafficTicket
-                        (park.getUser(),
-                                park.getVehicle());
-                park.setCurrent(false);
+                        trafficTicketService.generateTrafficTicket
+                        (park.getUser(), park.getVehicle());
+                        park.setCurrent(false);
             }
         }
     }
@@ -83,11 +82,14 @@ public class ParkService implements ParkGateway {
         boolean exist = parkRepository.existsByVehiclePlate(plate);
         if(!exist){
             User user = userService.findByVehiclePlate(plate);
-            Optional<Vehicle> optionalVehicle = user.getVehicles().stream().filter(
-                    v -> v.getPlate()
-                            .equals(plate)).findFirst();
-            trafficTicketService.generateTrafficTicket(user,
-                     optionalVehicle.get());
+            if(user != null){
+                Optional<Vehicle> optionalVehicle =
+                        user.getVehicles().stream().filter(
+                                v -> v.getPlate().equals(plate)).findFirst();
+                trafficTicketService.
+                        generateTrafficTicket(user,
+                                optionalVehicle.get());
+            }
         }
         return exist;
     }
