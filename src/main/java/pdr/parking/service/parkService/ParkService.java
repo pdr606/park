@@ -68,8 +68,13 @@ public class ParkService implements ParkGateway {
         for (Park park : parkList){
             if(LocalDateTime.now(ZoneId.of("America/Sao_Paulo")).isAfter(park.getExpirationAt())){
                 trafficTicketService.generateTrafficTicket(park.getUser(), park.getVehicle());
-                parkRepository.delete(park);
+                park.setCurrent(false);
             }
         }
+    }
+
+    @Override
+    public boolean checkPlate(String plate) {
+        return parkRepository.existsByVehiclePlate(plate);
     }
 }

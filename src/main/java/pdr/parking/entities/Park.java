@@ -44,5 +44,6 @@ public class Park {
         this.expirationAt = LocalDateTime.now(ZoneId.of("America/Sao_Paulo")).plusMinutes(totalTime);
         this.user = user;
         this.vehicle = vehicle;
+        this.current = true;
     }
 }

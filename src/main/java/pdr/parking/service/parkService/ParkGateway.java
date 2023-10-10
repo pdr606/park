@@ -8,4 +8,6 @@ public interface ParkGateway {
     Park generatePark(ParkingRequestDto parkingRequestDto);
 
     void checkExpiration();
+
+    boolean checkPlate(String plate);
 }
