@@ -18,6 +18,8 @@ import pdr.parking.service.vehicleService.VehicleService;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ParkService implements ParkGateway {
@@ -66,8 +68,11 @@ public class ParkService implements ParkGateway {
     public void checkExpiration() {
         List<Park> parkList = parkRepository.filterExpiredPark();
         for (Park park : parkList){
-            if(LocalDateTime.now(ZoneId.of("America/Sao_Paulo")).isAfter(park.getExpirationAt())){
-                trafficTicketService.generateTrafficTicket(park.getUser(), park.getVehicle());
+            if(LocalDateTime.now(ZoneId.of("America/Sao_Paulo"))
+                    .isAfter(park.getExpirationAt())){
+                trafficTicketService.generateTrafficTicket
+                        (park.getUser(),
+                                park.getVehicle());
                 park.setCurrent(false);
             }
         }
@@ -75,6 +80,15 @@ public class ParkService implements ParkGateway {
 
     @Override
     public boolean checkPlate(String plate) {
-        return parkRepository.existsByVehiclePlate(plate);
+        boolean exist = parkRepository.existsByVehiclePlate(plate);
+        if(!exist){
+            User user = userService.findByVehiclePlate(plate);
+            Optional<Vehicle> optionalVehicle = user.getVehicles().stream().filter(
+                    v -> v.getPlate()
+                            .equals(plate)).findFirst();
+            trafficTicketService.generateTrafficTicket(user,
+                     optionalVehicle.get());
+        }
+        return exist;
     }
 }

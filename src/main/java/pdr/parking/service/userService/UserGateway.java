@@ -10,6 +10,8 @@ public interface UserGateway {
     void addBalance(User user, Integer balance);
     void deleteUser(Long id);
 
+
+    User findByVehiclePlate(String plate);
     User findById(Long id);
 
 }

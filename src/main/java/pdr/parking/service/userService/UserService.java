@@ -1,6 +1,7 @@
 package pdr.parking.service.userService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import pdr.parking.dto.userDto.UserCreateRequestDto;
 import pdr.parking.dto.userDto.UserUpdateRequestDto;
@@ -47,6 +48,16 @@ public class UserService implements UserGateway {
         User user = findById(id);
         userRepository.deleteById(id);
     }
+
+    @Override
+    public User findByVehiclePlate(String plate) {
+        try{
+            return userRepository.findUserByVehiclePlate(plate);
+        } catch (DataIntegrityViolationException ex){
+            throw new UserNotFoundException();
+        }
+    }
+
     @Override
     public User findById(Long id) {
         return userRepository.findById(id).orElseThrow(() ->
