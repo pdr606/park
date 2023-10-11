@@ -7,5 +7,7 @@ import pdr.parking.entities.Vehicle;
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
+    Vehicle findByPlate(String plate);
+
 
 }

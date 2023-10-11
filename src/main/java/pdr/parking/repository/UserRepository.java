@@ -14,5 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u JOIN u.vehicles v WHERE v.plate = ?1")
     User findUserByVehiclePlate( String plate);
 
+    User findByCpf(String cpf);
 
 }

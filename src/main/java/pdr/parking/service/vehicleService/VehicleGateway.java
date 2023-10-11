@@ -1,7 +1,10 @@
 package pdr.parking.service.vehicleService;
 
 import pdr.parking.dto.vehicleDto.VehicleRequestDto;
+import pdr.parking.dto.vehicleDto.VehicleResponseDto;
 import pdr.parking.entities.Vehicle;
+
+import java.util.List;
 
 public interface VehicleGateway {
 
@@ -10,4 +13,8 @@ public interface VehicleGateway {
     Vehicle findById(Long id);
 
     void deleteVehicle(Long id);
+
+    VehicleResponseDto findByPlate(String plate);
+
+    List<VehicleResponseDto> findAll();
 }

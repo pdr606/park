@@ -26,4 +26,19 @@ public class UserMapper {
                                 )).collect(Collectors.toList());
 
     }
+
+    public static UserResponseDto toResponse(User user){
+        return new UserResponseDto(
+                user.getFirstName(),
+                user.getLastName(),
+                user.getCpf(),
+                user.getTelephone(),
+                user.getEmail(),
+                user.getId(),
+                user.getBalance(),
+                user.getRole(),
+                user.getVehicles(),
+                user.getParks(),
+                user.getTrafficTickets());
+    }
 }

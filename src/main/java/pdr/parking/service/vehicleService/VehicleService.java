@@ -1,14 +1,19 @@
 package pdr.parking.service.vehicleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import pdr.parking.dto.vehicleDto.VehicleRequestDto;
+import pdr.parking.dto.vehicleDto.VehicleResponseDto;
 import pdr.parking.entities.User;
 import pdr.parking.entities.Vehicle;
 import pdr.parking.exceptions.UserNotFoundException;
+import pdr.parking.exceptions.VehicleNotFoundException;
+import pdr.parking.mapper.VehicleMapper;
 import pdr.parking.repository.VehicleRepository;
 import pdr.parking.service.userService.UserService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -49,5 +54,19 @@ public class VehicleService implements VehicleGateway {
     public void deleteVehicle(Long id) {
         Optional<Vehicle> vehicle = vehicleRepository.findById(id);
         vehicleRepository.deleteById(id);
+    }
+
+    @Override
+    public VehicleResponseDto findByPlate(String plate) {
+        try{
+            return VehicleMapper.toResponse(vehicleRepository.findByPlate(plate));
+        } catch (DataIntegrityViolationException ex){
+            throw new VehicleNotFoundException();
+        }
+    }
+
+    @Override
+    public List<VehicleResponseDto> findAll() {
+        return VehicleMapper.toResponse(vehicleRepository.findAll());
     }
 }

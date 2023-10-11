@@ -16,6 +16,7 @@ public interface UserGateway {
 
     User findByVehiclePlate(String plate);
     User findById(Long id);
+    User findByCpf(String cpf);
 
     List<UserResponseDto> findAll();
 

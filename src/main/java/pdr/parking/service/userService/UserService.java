@@ -72,6 +72,15 @@ public class UserService implements UserGateway {
     }
 
     @Override
+    public User findByCpf(String cpf) {
+        try{
+            return userRepository.findByCpf(cpf);
+        } catch (DataIntegrityViolationException ex){
+            throw new UserNotFoundException();
+        }
+    }
+
+    @Override
     public List<UserResponseDto> findAll() {
         return UserMapper.toResponse(userRepository.findAll());
     }

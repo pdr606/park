@@ -2,11 +2,10 @@ package pdr.parking.controller;
 
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pdr.parking.dto.userDto.UserResponseDto;
+import pdr.parking.dto.vehicleDto.VehicleResponseDto;
+import pdr.parking.entities.User;
 import pdr.parking.service.adminService.AdminService;
 
 import java.util.List;
@@ -21,9 +20,27 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @GetMapping(name = "/users")
+    @GetMapping(value = "/users")
     @ResponseStatus(HttpStatus.OK)
-    public List<UserResponseDto> findAll(){
+    public List<UserResponseDto> findAllUsers(){
         return adminService.findAllUsers();
+    }
+
+    @GetMapping(value = "/users/{cpf}")
+    @ResponseStatus(HttpStatus.OK)
+    public User findUser(@PathVariable String cpf){
+        return adminService.findUserByCpf(cpf);
+    }
+
+    @GetMapping(value = "/vehicles")
+    @ResponseStatus(HttpStatus.OK)
+    public List<VehicleResponseDto> findAllVehicles(){
+        return adminService.findAllVehicles();
+    }
+
+    @GetMapping(value = "/vehicles/{plate}")
+    @ResponseStatus(HttpStatus.OK)
+    public VehicleResponseDto findVehicle(@PathVariable String plate){
+        return adminService.findVehicleByPlate(plate);
     }
 }
