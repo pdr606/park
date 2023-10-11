@@ -4,11 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import pdr.parking.dto.userDto.UserCreateRequestDto;
+import pdr.parking.dto.userDto.UserResponseDto;
 import pdr.parking.dto.userDto.UserUpdateRequestDto;
 import pdr.parking.exceptions.UserDuplicateException;
 import pdr.parking.exceptions.UserNotFoundException;
 import pdr.parking.entities.User;
+import pdr.parking.mapper.UserMapper;
 import pdr.parking.repository.UserRepository;
+
+import java.util.List;
 
 
 @Service
@@ -24,7 +28,8 @@ public class UserService implements UserGateway {
                     userCreateRequestDto.telephone(),
                     userCreateRequestDto.cpf(),
                     userCreateRequestDto.email(),
-                    userCreateRequestDto.password()));
+                    userCreateRequestDto.password(),
+                    userCreateRequestDto.role()));
             return;
         }
         throw new UserDuplicateException(userCreateRequestDto.cpf());
@@ -63,5 +68,10 @@ public class UserService implements UserGateway {
         return userRepository.findById(id).orElseThrow(() ->
             new UserNotFoundException()
                 );
+    }
+
+    @Override
+    public List<UserResponseDto> findAll() {
+        return UserMapper.toResponse(userRepository.findAll());
     }
 }
