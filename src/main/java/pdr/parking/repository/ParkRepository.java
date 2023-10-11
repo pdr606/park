@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ParkRepository extends JpaRepository<Park, Long> {
 
-    @Query(value = "SELECT * FROM park WHERE expirationAt <= CURRENT_TIMESTAMP", nativeQuery = true)
+    @Query(value = "SELECT * FROM park WHERE expirationAt <= CURRENT_TIMESTAMP AND current != false", nativeQuery = true)
     List<Park> filterExpiredPark();
 
     boolean existsByVehiclePlate(String plate);
