@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import pdr.parking.dto.userDto.UserResponseDto;
 import pdr.parking.dto.vehicleDto.VehicleResponseDto;
 import pdr.parking.entities.User;
-import pdr.parking.entities.Vehicle;
 import pdr.parking.service.userService.UserGateway;
 import pdr.parking.service.vehicleService.VehicleGateway;
 

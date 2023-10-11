@@ -41,4 +41,15 @@ public class UserMapper {
                 user.getParks(),
                 user.getTrafficTickets());
     }
+
+    public static User toEntity(UserResponseDto userResponseDto){
+        return new User(
+                userResponseDto.firstName(),
+                userResponseDto.lastName(),
+                userResponseDto.cpf(),
+                userResponseDto.email(),
+                userResponseDto.telephone(),
+                null,
+                null);
+    }
 }
