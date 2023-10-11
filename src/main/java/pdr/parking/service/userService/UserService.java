@@ -23,11 +23,12 @@ public class UserService implements UserGateway {
 
     public void createUser(UserCreateRequestDto userCreateRequestDto) {
         if(!userRepository.existsByCpf(userCreateRequestDto.cpf())){
-            userRepository.save(new User(userCreateRequestDto.firstName(),
+            userRepository.save(new User(
+                    userCreateRequestDto.firstName(),
                     userCreateRequestDto.lastName(),
-                    userCreateRequestDto.telephone(),
                     userCreateRequestDto.cpf(),
                     userCreateRequestDto.email(),
+                    userCreateRequestDto.telephone(),
                     userCreateRequestDto.password(),
                     userCreateRequestDto.role()));
             return;

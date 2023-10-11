@@ -35,10 +35,4 @@ public class UserController {
         return userService.findById(id);
     }
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<UserResponseDto> findAll(){
-        return adminService.findAllUsers();
-    }
-
 }
