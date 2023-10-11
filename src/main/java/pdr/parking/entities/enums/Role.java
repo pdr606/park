@@ -15,6 +15,7 @@ public enum Role {
 
     private int code;
 
+
     public static Role valueOf(int code){
         for(Role value : Role.values()){
             if(value.getCode() == code){

@@ -3,6 +3,7 @@ package pdr.parking.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pdr.parking.dto.userDto.UserCreateRequestDto;
 import pdr.parking.dto.userDto.UserResponseDto;
 import pdr.parking.dto.vehicleDto.VehicleResponseDto;
 import pdr.parking.entities.User;
@@ -42,5 +43,11 @@ public class AdminController {
     @ResponseStatus(HttpStatus.OK)
     public VehicleResponseDto findVehicle(@PathVariable String plate){
         return adminService.findVehicleByPlate(plate);
+    }
+
+    @PostMapping(value = "/traffic-guard/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createTrafficRider(@RequestBody UserCreateRequestDto userCreateRequestDto){
+         adminService.createTrafficGuard(userCreateRequestDto);
     }
 }

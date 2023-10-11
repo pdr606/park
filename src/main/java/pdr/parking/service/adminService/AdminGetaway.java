@@ -1,6 +1,7 @@
 package pdr.parking.service.adminService;
 
 import org.w3c.dom.stylesheets.LinkStyle;
+import pdr.parking.dto.userDto.UserCreateRequestDto;
 import pdr.parking.dto.userDto.UserResponseDto;
 import pdr.parking.dto.vehicleDto.VehicleResponseDto;
 import pdr.parking.entities.User;
@@ -18,4 +19,6 @@ public interface AdminGetaway{
     VehicleResponseDto findVehicleByPlate(String plate);
 
     List<VehicleResponseDto> findAllVehicles();
+
+    void createTrafficGuard(UserCreateRequestDto userCreateRequestDto);
 }
