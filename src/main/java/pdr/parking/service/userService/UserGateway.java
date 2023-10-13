@@ -9,15 +9,13 @@ import java.util.List;
 
 public interface UserGateway {
     void createUser(UserCreateRequestDto userCreateRequestDto);
-    void updateUser(Long id, UserUpdateRequestDto userUpdateRequestDto);
+    void updateData(User user, UserUpdateRequestDto userUpdateRequestDto);
     void addBalance(User user, Integer balance);
     void deleteUser(Long id);
-
-
-    User findByVehiclePlate(String plate);
-    User findById(Long id);
-    User findByCpf(String cpf);
-
+    UserResponseDto updateUser(Long id, UserUpdateRequestDto userUpdateRequestDto);
+    UserResponseDto findByVehiclePlate(String plate);
+    UserResponseDto findById(Long id);
+    UserResponseDto findByCpf(String cpf);
     List<UserResponseDto> findAll();
 
 }

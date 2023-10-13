@@ -29,7 +29,7 @@ public class AdminController {
 
     @GetMapping(value = "/users/{cpf}")
     @ResponseStatus(HttpStatus.OK)
-    public User findUser(@PathVariable String cpf){
+    public UserResponseDto findUser(@PathVariable String cpf){
         return adminService.findUserByCpf(cpf);
     }
 

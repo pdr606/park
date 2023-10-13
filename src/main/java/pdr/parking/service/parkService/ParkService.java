@@ -10,6 +10,7 @@ import pdr.parking.entities.Park;
 import pdr.parking.entities.TrafficTicket;
 import pdr.parking.entities.User;
 import pdr.parking.entities.Vehicle;
+import pdr.parking.mapper.UserMapper;
 import pdr.parking.repository.ParkRepository;
 import pdr.parking.service.trafficTicketService.TrafficTicketService;
 import pdr.parking.service.userService.UserService;
@@ -55,7 +56,7 @@ public class ParkService implements ParkGateway {
 
     @Override
     public Park generatePark(ParkingRequestDto parkingRequestDto) {
-        User user = userService.findById(parkingRequestDto.userId());
+        User user = UserMapper.toEntity(userService.findById(parkingRequestDto.userId()));
         Vehicle vehicle = vehicleService.findById(parkingRequestDto.vehicleId());
         return parkRepository.save(new Park(parkingRequestDto.totalTime(),
                 user,
@@ -79,7 +80,7 @@ public class ParkService implements ParkGateway {
     public boolean checkPlate(String plate) {
         boolean exist = parkRepository.existsByVehiclePlate(plate);
         if(!exist){
-            User user = userService.findByVehiclePlate(plate);
+            User user = UserMapper.toEntity(userService.findByVehiclePlate(plate));
             if(user != null){
                 Optional<Vehicle> optionalVehicle =
                         user.getVehicles().stream().filter(

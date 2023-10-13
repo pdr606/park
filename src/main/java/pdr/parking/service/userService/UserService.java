@@ -37,8 +37,19 @@ public class UserService implements UserGateway {
     }
 
     @Override
-    public void updateUser(Long id, UserUpdateRequestDto userUpdateRequestDto) {
-        User user = findById(id);
+    public UserResponseDto updateUser(Long id, UserUpdateRequestDto userUpdateRequestDto) {
+        try{
+            User user = userRepository.getReferenceById(id);
+            updateData(user, userUpdateRequestDto);
+            userRepository.save(user);
+            return UserMapper.toResponse(user);
+        } catch (DataIntegrityViolationException ex){
+            throw new UserNotFoundException();
+        }
+    }
+
+    @Override
+    public void updateData(User user, UserUpdateRequestDto userUpdateRequestDto) {
         user.setEmail(userUpdateRequestDto.email());
         user.setTelephone(userUpdateRequestDto.telephone());
         userRepository.save(user);
@@ -55,30 +66,29 @@ public class UserService implements UserGateway {
     }
 
     @Override
-    public User findByVehiclePlate(String plate) {
+    public UserResponseDto findByVehiclePlate(String plate) {
         try{
-            return userRepository.findUserByVehiclePlate(plate);
+            return UserMapper.toResponse(userRepository.findUserByVehiclePlate(plate));
         } catch (DataIntegrityViolationException ex){
             throw new UserNotFoundException();
         }
     }
 
     @Override
-    public User findById(Long id) {
-        return userRepository.findById(id).orElseThrow(() ->
-            new UserNotFoundException()
-                );
+    public UserResponseDto findById(Long id) {
+        return UserMapper.toResponse(userRepository.findById(id).orElseThrow(() ->
+                new UserNotFoundException()
+        ));
     }
 
     @Override
-    public User findByCpf(String cpf) {
+    public UserResponseDto findByCpf(String cpf) {
         try{
-            return userRepository.findByCpf(cpf);
+            return UserMapper.toResponse(userRepository.findByCpf(cpf));
         } catch (DataIntegrityViolationException ex){
             throw new UserNotFoundException();
         }
     }
-
     @Override
     public List<UserResponseDto> findAll() {
         return UserMapper.toResponse(userRepository.findAll());

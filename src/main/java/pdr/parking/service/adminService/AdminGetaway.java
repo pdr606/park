@@ -14,7 +14,7 @@ public interface AdminGetaway{
 
     List<UserResponseDto> findAllUsers();
 
-    User findUserByCpf(String cpf);
+    UserResponseDto findUserByCpf(String cpf);
 
     VehicleResponseDto findVehicleByPlate(String plate);
 

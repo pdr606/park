@@ -28,7 +28,7 @@ public class AdminService implements AdminGetaway {
     }
 
     @Override
-    public User findUserByCpf(String cpf) {
+    public UserResponseDto findUserByCpf(String cpf) {
         return userGateway.findByCpf(cpf);
     }
 
