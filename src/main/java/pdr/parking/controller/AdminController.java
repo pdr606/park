@@ -47,7 +47,11 @@ public class AdminController {
 
     @PostMapping(value = "/traffic-guard/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createTrafficRider(@RequestBody UserCreateRequestDto userCreateRequestDto){
+    public void createTrafficGuard(@RequestBody UserCreateRequestDto userCreateRequestDto){
          adminService.createTrafficGuard(userCreateRequestDto);
+    }
+    @PostMapping(value = "/traffic-guard/delete")
+    public void deleteTrafficRider(@PathVariable Long id){
+        adminService.deleteTrafficGuard(id);
     }
 }

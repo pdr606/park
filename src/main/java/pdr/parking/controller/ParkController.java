@@ -11,7 +11,7 @@ import pdr.parking.service.parkService.ParkService;
 
 @RestController
 @RequestMapping("/api/v1/park")
-public class ParkController {
+public class  ParkController {
 
     @Autowired
     private ParkService parkService;

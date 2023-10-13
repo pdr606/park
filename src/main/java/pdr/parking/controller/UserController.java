@@ -31,7 +31,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public User search(@PathVariable Long id){
+    public UserResponseDto search(@PathVariable Long id){
         return userService.findById(id);
     }
 
