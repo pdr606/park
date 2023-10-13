@@ -8,12 +8,9 @@ import pdr.parking.entities.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
     boolean existsByCpf(String cpf);
-
     @Query("SELECT u FROM User u JOIN u.vehicles v WHERE v.plate = ?1")
-    User findUserByVehiclePlate( String plate);
-
+    User findUserByVehiclePlate(String plate);
     User findByCpf(String cpf);
 
 }

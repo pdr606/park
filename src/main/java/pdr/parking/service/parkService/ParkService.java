@@ -81,15 +81,18 @@ public class ParkService implements ParkGateway {
         boolean exist = parkRepository.existsByVehiclePlate(plate);
         if(!exist){
             User user = UserMapper.toEntity(userService.findByVehiclePlate(plate));
-            if(user != null){
-                Optional<Vehicle> optionalVehicle =
-                        user.getVehicles().stream().filter(
-                                v -> v.getPlate().equals(plate)).findFirst();
-                        trafficTicketService.
-                        generateTrafficTicket(user,
-                                optionalVehicle.get());
-            }
+            Optional<Vehicle> optionalVehicle =
+                    user.getVehicles().stream().filter(
+                            v -> v.getPlate().equals(plate)).findFirst();
+            trafficTicketService.
+            generateTrafficTicket(user,
+                    optionalVehicle.get());
         }
         return exist;
+    }
+
+    @Override
+    public List<Park> findAll() {
+        return parkRepository.findAll();
     }
 }

@@ -4,8 +4,10 @@ import org.springframework.stereotype.Service;
 import pdr.parking.dto.userDto.UserCreateRequestDto;
 import pdr.parking.dto.userDto.UserResponseDto;
 import pdr.parking.dto.vehicleDto.VehicleResponseDto;
+import pdr.parking.entities.Park;
 import pdr.parking.entities.User;
 import pdr.parking.entities.enums.Role;
+import pdr.parking.service.parkService.ParkGateway;
 import pdr.parking.service.userService.UserGateway;
 import pdr.parking.service.vehicleService.VehicleGateway;
 
@@ -16,11 +18,14 @@ public class AdminService implements AdminGetaway {
 
     private UserGateway userGateway;
     private VehicleGateway vehicleGateway;
+    private ParkGateway parkGateway;
 
-    public AdminService(UserGateway userGateway, VehicleGateway vehicleGateway)
+    public AdminService(UserGateway userGateway, VehicleGateway vehicleGateway,
+                        ParkGateway parkGateway)
     {
         this.userGateway = userGateway;
         this.vehicleGateway = vehicleGateway;
+        this.parkGateway = parkGateway;
     }
     @Override
     public List<UserResponseDto> findAllUsers() {
@@ -40,6 +45,11 @@ public class AdminService implements AdminGetaway {
     @Override
     public List<VehicleResponseDto> findAllVehicles() {
         return vehicleGateway.findAll();
+    }
+
+    @Override
+    public List<Park> findAllParks() {
+        return parkGateway.findAll();
     }
 
     @Override
