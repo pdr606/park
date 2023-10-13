@@ -51,7 +51,6 @@ public class UserService implements UserGateway {
 
     @Override
     public void deleteUser(Long id) {
-        User user = findById(id);
         userRepository.deleteById(id);
     }
 
