@@ -28,6 +28,7 @@ public class TrafficGuardService implements TrafficGuardGetaway {
         parkGateway.checkPlate(plate);
     }
 
+
     @Override
     public TrafficTicket generateTrafficTicket(String plate) {
         User user = UserMapper.toEntity(userGateway.findByVehiclePlate(plate));

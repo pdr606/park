@@ -65,4 +65,9 @@ public class AdminService implements AdminGetaway {
         );
         userGateway.createUser(userCreateRequestDto);
     }
+
+    @Override
+    public void deleteTrafficGuard(Long id) {
+        userGateway.deleteUser(id);
+    }
 }

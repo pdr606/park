@@ -18,4 +18,5 @@ public interface AdminGetaway{
     List<VehicleResponseDto> findAllVehicles();
     List<Park> findAllParks();
     void createTrafficGuard(UserCreateRequestDto userCreateRequestDto);
+    void deleteTrafficGuard(Long id);
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pdr.parking.entities.User;
+import pdr.parking.exceptions.TraffIcGuardNotFoundException;
 import pdr.parking.exceptions.UserDuplicateException;
 import pdr.parking.exceptions.UserNotFoundException;
 import pdr.parking.exceptions.VehicleNotFoundException;
@@ -31,7 +32,7 @@ public class GlobalExceptionHandler {
         );
     }
 
-    @ExceptionHandler({UserNotFoundException.class, VehicleNotFoundException.class})
+    @ExceptionHandler({UserNotFoundException.class, VehicleNotFoundException.class, TraffIcGuardNotFoundException.class})
     public StandardError UserNotFoundException(UserNotFoundException e, HttpServletRequest request){
         String error = "Request not found";
         HttpStatus status = HttpStatus.NOT_FOUND;
