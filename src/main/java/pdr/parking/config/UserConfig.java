@@ -3,15 +3,15 @@ package pdr.parking.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pdr.parking.mapper.ParkMapper;
-import pdr.parking.mapper.UserMapper;
+import pdr.parking.mapper.UserDtoMapper;
 import pdr.parking.mapper.VehicleMapper;
 
 @Configuration
 public class UserConfig {
 
     @Bean
-    UserMapper userMapper(){
-        return new UserMapper();
+    UserDtoMapper userMapper(){
+        return new UserDtoMapper();
     }
 
     @Bean

@@ -13,9 +13,9 @@ public interface UserGateway {
     void updateData(User user, UserUpdateRequestDto userUpdateRequestDto);
     void addBalance(User user, Integer balance);
     void deleteUser(Long id);
-    UserResponseDto updateUser(Long id, UserUpdateRequestDto userUpdateRequestDto);
-    UserResponseDto findByVehiclePlate(String plate);
-    UserResponseDto findById(Long id);
-    UserResponseDto findByCpf(String cpf);
-    List<UserResponseDto> findAll();
+    User updateUser(Long id, UserUpdateRequestDto userUpdateRequestDto);
+    User findByVehiclePlate(String plate);
+    User findById(Long id);
+    User findByCpf(String cpf);
+    List<User> findAll();
 }

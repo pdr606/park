@@ -4,10 +4,8 @@ import org.springframework.stereotype.Service;
 import pdr.parking.entities.TrafficTicket;
 import pdr.parking.entities.User;
 import pdr.parking.entities.Vehicle;
-import pdr.parking.mapper.UserMapper;
 import pdr.parking.service.parkService.ParkGateway;
 import pdr.parking.service.trafficTicketService.TrafficTicketGetaway;
-import pdr.parking.service.trafficTicketService.TrafficTicketService;
 import pdr.parking.service.userService.UserGateway;
 
 @Service
@@ -31,7 +29,7 @@ public class TrafficGuardService implements TrafficGuardGetaway {
 
     @Override
     public TrafficTicket generateTrafficTicket(String plate) {
-        User user = UserMapper.toEntity(userGateway.findByVehiclePlate(plate));
+        User user = userGateway.findByVehiclePlate(plate);
         return trafficTicketGetaway.generateTrafficTicket(user, (Vehicle) user.getVehicles());
 
     }

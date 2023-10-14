@@ -6,6 +6,7 @@ import pdr.parking.dto.userDto.UserResponseDto;
 import pdr.parking.dto.vehicleDto.VehicleResponseDto;
 import pdr.parking.entities.Park;
 import pdr.parking.entities.User;
+import pdr.parking.entities.Vehicle;
 import pdr.parking.entities.enums.Role;
 import pdr.parking.service.parkService.ParkGateway;
 import pdr.parking.service.userService.UserGateway;
@@ -29,22 +30,22 @@ public class AdminService implements AdminGetaway {
         this.parkGateway = parkGateway;
     }
     @Override
-    public List<UserResponseDto> findAllUsers() {
+    public List<User> findAllUsers() {
         return userGateway.findAll();
     }
 
     @Override
-    public UserResponseDto findUserByCpf(String cpf) {
+    public User findUserByCpf(String cpf) {
         return userGateway.findByCpf(cpf);
     }
 
     @Override
-    public VehicleResponseDto findVehicleByPlate(String plate) {
+    public Vehicle findVehicleByPlate(String plate) {
         return vehicleGateway.findByPlate(plate);
     }
 
     @Override
-    public List<VehicleResponseDto> findAllVehicles() {
+    public List<Vehicle> findAllVehicles() {
         return vehicleGateway.findAll();
     }
 

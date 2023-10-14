@@ -9,10 +9,9 @@ import pdr.parking.entities.User;
 import pdr.parking.entities.Vehicle;
 import pdr.parking.exceptions.UserNotFoundException;
 import pdr.parking.exceptions.VehicleNotFoundException;
-import pdr.parking.mapper.UserMapper;
 import pdr.parking.mapper.VehicleMapper;
 import pdr.parking.repository.VehicleRepository;
-import pdr.parking.service.userService.UserService;
+import pdr.parking.service.userService.UserGateway;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,20 +19,19 @@ import java.util.Optional;
 @Service
 public class VehicleService implements VehicleGateway {
 
-    @Autowired
+
     private final VehicleRepository vehicleRepository;
+    private final UserGateway userGateway;
 
-    @Autowired
-    private final UserService userService;
 
-    public VehicleService(VehicleRepository vehicleRepository, UserService userService) {
+    public VehicleService(VehicleRepository vehicleRepository, UserGateway userGateway) {
         this.vehicleRepository = vehicleRepository;
-        this.userService = userService;
+        this.userGateway = userGateway;
     }
 
     @Override
     public void registerVehicle(VehicleRequestDto vehicleRequestDto) {
-        User user = UserMapper.toEntity(userService.findById(vehicleRequestDto.userId()));
+        User user = userGateway.findById(vehicleRequestDto.userId());
         vehicleRepository.save(new Vehicle(vehicleRequestDto.plate(),
                 vehicleRequestDto.foreignPlate(),
                 vehicleRequestDto.brand(),
@@ -45,8 +43,7 @@ public class VehicleService implements VehicleGateway {
     @Override
     public Vehicle findById(Long id) {
         return vehicleRepository.findById(id)
-                .orElseThrow(() ->
-                        new UserNotFoundException()
+                .orElseThrow(UserNotFoundException::new
                 );
 
     }
@@ -58,16 +55,16 @@ public class VehicleService implements VehicleGateway {
     }
 
     @Override
-    public VehicleResponseDto findByPlate(String plate) {
+    public Vehicle findByPlate(String plate) {
         try{
-            return VehicleMapper.toResponse(vehicleRepository.findByPlate(plate));
+            return vehicleRepository.findByPlate(plate);
         } catch (DataIntegrityViolationException ex){
             throw new VehicleNotFoundException();
         }
     }
 
     @Override
-    public List<VehicleResponseDto> findAll() {
-        return VehicleMapper.toResponse(vehicleRepository.findAll());
+    public List<Vehicle> findAll() {
+        return vehicleRepository.findAll();
     }
 }

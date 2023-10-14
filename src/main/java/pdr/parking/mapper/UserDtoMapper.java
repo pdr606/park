@@ -6,7 +6,7 @@ import pdr.parking.entities.User;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserMapper {
+public class UserDtoMapper {
 
     public static List<UserResponseDto> toResponse(List<User> users){
         return

@@ -14,7 +14,7 @@ public interface VehicleGateway {
 
     void deleteVehicle(Long id);
 
-    VehicleResponseDto findByPlate(String plate);
+    Vehicle findByPlate(String plate);
 
-    List<VehicleResponseDto> findAll();
+    List<Vehicle> findAll();
 }

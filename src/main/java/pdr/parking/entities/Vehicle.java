@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import pdr.parking.entities.enums.VehicleType;
 
+import java.util.Optional;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

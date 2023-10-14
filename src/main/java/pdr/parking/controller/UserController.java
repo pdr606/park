@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pdr.parking.dto.userDto.UserCreateRequestDto;
 import pdr.parking.dto.userDto.UserResponseDto;
 import pdr.parking.entities.User;
+import pdr.parking.mapper.UserDtoMapper;
 import pdr.parking.service.adminService.AdminService;
 import pdr.parking.service.userService.UserService;
 
@@ -18,11 +19,10 @@ import java.util.List;
 @RequestMapping("/api/v1/users")
 public class UserController {
 
-    @Autowired
-    private  UserService userService;
-
-    @Autowired
-    private AdminService adminService;
+    private final  UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -33,7 +33,7 @@ public class UserController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserResponseDto search(@PathVariable Long id){
-        return userService.findById(id);
+        return UserDtoMapper.toResponse(userService.findById(id));
     }
 
 }

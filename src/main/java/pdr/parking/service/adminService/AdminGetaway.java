@@ -13,10 +13,10 @@ import java.io.IOException;
 import java.util.List;
 
 public interface AdminGetaway{
-    List<UserResponseDto> findAllUsers();
-    UserResponseDto findUserByCpf(String cpf);
-    VehicleResponseDto findVehicleByPlate(String plate);
-    List<VehicleResponseDto> findAllVehicles();
+    List<User> findAllUsers();
+    User findUserByCpf(String cpf);
+    Vehicle findVehicleByPlate(String plate);
+    List<Vehicle> findAllVehicles();
     List<Park> findAllParks();
     void createTrafficGuard(UserCreateRequestDto userCreateRequestDto) throws IOException;
     void deleteTrafficGuard(Long id);

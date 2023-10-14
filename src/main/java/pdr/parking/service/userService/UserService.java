@@ -3,12 +3,10 @@ package pdr.parking.service.userService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import pdr.parking.dto.userDto.UserCreateRequestDto;
-import pdr.parking.dto.userDto.UserResponseDto;
 import pdr.parking.dto.userDto.UserUpdateRequestDto;
 import pdr.parking.exceptions.UserDuplicateException;
 import pdr.parking.exceptions.UserNotFoundException;
 import pdr.parking.entities.User;
-import pdr.parking.mapper.UserMapper;
 import pdr.parking.repository.UserRepository;
 
 import java.util.List;
@@ -18,7 +16,6 @@ import java.util.List;
 public class UserService implements UserGateway {
 
     private final UserRepository userRepository;
-
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
@@ -40,12 +37,12 @@ public class UserService implements UserGateway {
     }
 
     @Override
-    public UserResponseDto updateUser(Long id, UserUpdateRequestDto userUpdateRequestDto) {
+    public User updateUser(Long id, UserUpdateRequestDto userUpdateRequestDto) {
         try{
             User user = userRepository.getReferenceById(id);
             updateData(user, userUpdateRequestDto);
             userRepository.save(user);
-            return UserMapper.toResponse(user);
+            return user;
         } catch (DataIntegrityViolationException ex){
             throw new UserNotFoundException();
         }
@@ -69,30 +66,29 @@ public class UserService implements UserGateway {
     }
 
     @Override
-    public UserResponseDto findByVehiclePlate(String plate) {
+    public User findByVehiclePlate(String plate) {
         try{
-            return UserMapper.toResponse(userRepository.findUserByVehiclePlate(plate));
+            return userRepository.findUserByVehiclePlate(plate);
         } catch (DataIntegrityViolationException ex){
             throw new UserNotFoundException();
         }
     }
 
     @Override
-    public UserResponseDto findById(Long id) {
-        return UserMapper.toResponse(userRepository.findById(id).orElseThrow(UserNotFoundException::new
-        ));
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
     @Override
-    public UserResponseDto findByCpf(String cpf) {
+    public User findByCpf(String cpf) {
         try{
-            return UserMapper.toResponse(userRepository.findByCpf(cpf));
+            return userRepository.findByCpf(cpf);
         } catch (DataIntegrityViolationException ex){
             throw new UserNotFoundException();
         }
     }
     @Override
-    public List<UserResponseDto> findAll() {
-        return UserMapper.toResponse(userRepository.findAll());
+    public List<User> findAll() {
+        return (userRepository.findAll());
     }
 }

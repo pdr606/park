@@ -7,6 +7,7 @@ import pdr.parking.dto.userDto.UserCreateRequestDto;
 import pdr.parking.dto.userDto.UserResponseDto;
 import pdr.parking.dto.vehicleDto.VehicleResponseDto;
 import pdr.parking.entities.User;
+import pdr.parking.mapper.VehicleMapper;
 import pdr.parking.service.adminService.AdminService;
 
 import java.io.IOException;
@@ -24,26 +25,26 @@ public class AdminController {
 
     @GetMapping(value = "/users")
     @ResponseStatus(HttpStatus.OK)
-    public List<UserResponseDto> findAllUsers(){
+    public List<User> findAllUsers(){
         return adminService.findAllUsers();
     }
 
     @GetMapping(value = "/users/{cpf}")
     @ResponseStatus(HttpStatus.OK)
-    public UserResponseDto findUser(@PathVariable String cpf){
+    public User findUser(@PathVariable String cpf){
         return adminService.findUserByCpf(cpf);
     }
 
     @GetMapping(value = "/vehicles")
     @ResponseStatus(HttpStatus.OK)
     public List<VehicleResponseDto> findAllVehicles(){
-        return adminService.findAllVehicles();
+        return VehicleMapper.toResponse(adminService.findAllVehicles());
     }
 
     @GetMapping(value = "/vehicles/{plate}")
     @ResponseStatus(HttpStatus.OK)
     public VehicleResponseDto findVehicle(@PathVariable String plate){
-        return adminService.findVehicleByPlate(plate);
+        return VehicleMapper.toResponse(adminService.findVehicleByPlate(plate));
     }
 
     @PostMapping(value = "/traffic-guard/create")
