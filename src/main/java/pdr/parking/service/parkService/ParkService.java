@@ -12,8 +12,11 @@ import pdr.parking.entities.User;
 import pdr.parking.entities.Vehicle;
 import pdr.parking.mapper.UserMapper;
 import pdr.parking.repository.ParkRepository;
+import pdr.parking.service.trafficTicketService.TrafficTicketGetaway;
 import pdr.parking.service.trafficTicketService.TrafficTicketService;
+import pdr.parking.service.userService.UserGateway;
 import pdr.parking.service.userService.UserService;
+import pdr.parking.service.vehicleService.VehicleGateway;
 import pdr.parking.service.vehicleService.VehicleService;
 
 import java.time.LocalDateTime;
@@ -29,13 +32,13 @@ public class ParkService implements ParkGateway {
     private ParkRepository parkRepository;
 
     @Autowired
-    private UserService userService;
+    private UserGateway userGateway;
 
     @Autowired
-    private VehicleService vehicleService;
+    private VehicleGateway vehicleGateway;
 
     @Autowired
-    private TrafficTicketService trafficTicketService;
+    private TrafficTicketGetaway trafficTicketGetaway;
 
     public ParkService() {
     }
@@ -45,19 +48,19 @@ public class ParkService implements ParkGateway {
     }
 
     public ParkService(ParkRepository parkRepository,
-                       UserService userService,
-                       VehicleService vehicleService,
-                       TrafficTicketService trafficTicketService) {
+                       UserGateway userGateway,
+                       VehicleGateway vehicleGateway,
+                       TrafficTicketGetaway trafficTicketGetaway) {
         this.parkRepository = parkRepository;
-        this.userService = userService;
-        this.vehicleService = vehicleService;
-        this.trafficTicketService = trafficTicketService;
+        this.userGateway = userGateway;
+        this.vehicleGateway = vehicleGateway;
+        this.trafficTicketGetaway = trafficTicketGetaway;
     }
 
     @Override
     public Park generatePark(ParkingRequestDto parkingRequestDto) {
-        User user = UserMapper.toEntity(userService.findById(parkingRequestDto.userId()));
-        Vehicle vehicle = vehicleService.findById(parkingRequestDto.vehicleId());
+        User user = UserMapper.toEntity(userGateway.findById(parkingRequestDto.userId()));
+        Vehicle vehicle = vehicleGateway.findById(parkingRequestDto.vehicleId());
         return parkRepository.save(new Park(parkingRequestDto.totalTime(),
                 user,
                 vehicle));
@@ -80,11 +83,11 @@ public class ParkService implements ParkGateway {
     public boolean checkPlate(String plate) {
         boolean exist = parkRepository.existsByVehiclePlate(plate);
         if(!exist){
-            User user = UserMapper.toEntity(userService.findByVehiclePlate(plate));
+            User user = UserMapper.toEntity(userGateway.findByVehiclePlate(plate));
             Optional<Vehicle> optionalVehicle =
                     user.getVehicles().stream().filter(
                             v -> v.getPlate().equals(plate)).findFirst();
-            trafficTicketService.
+            trafficTicketGetaway.
             generateTrafficTicket(user,
                     optionalVehicle.get());
         }
