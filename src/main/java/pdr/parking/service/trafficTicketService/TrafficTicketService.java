@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @Service
 public class TrafficTicketService implements TrafficTicketGetaway {
 
-    @Autowired
-    private TrafficTicketRepository trafficTicketRepository;
+
+    private final TrafficTicketRepository trafficTicketRepository;
 
     public TrafficTicketService(TrafficTicketRepository trafficTicketRepository) {
         this.trafficTicketRepository = trafficTicketRepository;

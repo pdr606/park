@@ -1,6 +1,5 @@
 package pdr.parking.service.userService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import pdr.parking.dto.userDto.UserCreateRequestDto;
@@ -12,15 +11,17 @@ import pdr.parking.entities.User;
 import pdr.parking.mapper.UserMapper;
 import pdr.parking.repository.UserRepository;
 
-import java.io.IOException;
 import java.util.List;
 
 
 @Service
 public class UserService implements UserGateway {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
 
     public void createUser(UserCreateRequestDto userCreateRequestDto) {

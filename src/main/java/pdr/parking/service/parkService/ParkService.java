@@ -1,56 +1,38 @@
 package pdr.parking.service.parkService;
 
-import org.hibernate.annotations.Cache;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pdr.parking.dto.parkDto.ParkingRequestDto;
 import pdr.parking.entities.Park;
-import pdr.parking.entities.TrafficTicket;
+
 import pdr.parking.entities.User;
 import pdr.parking.entities.Vehicle;
 import pdr.parking.mapper.UserMapper;
 import pdr.parking.repository.ParkRepository;
 import pdr.parking.service.trafficTicketService.TrafficTicketGetaway;
-import pdr.parking.service.trafficTicketService.TrafficTicketService;
+
 import pdr.parking.service.userService.UserGateway;
-import pdr.parking.service.userService.UserService;
+
 import pdr.parking.service.vehicleService.VehicleGateway;
-import pdr.parking.service.vehicleService.VehicleService;
+
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 public class ParkService implements ParkGateway {
 
-    @Autowired
-    private ParkRepository parkRepository;
+    private final ParkRepository parkRepository;
+    private final UserGateway userGateway;
+    private final VehicleGateway vehicleGateway;
+    private final TrafficTicketGetaway trafficTicketGetaway;
 
-    @Autowired
-    private UserGateway userGateway;
-
-    @Autowired
-    private  VehicleGateway vehicleGateway;
-
-    @Autowired
-    private TrafficTicketGetaway trafficTicketGetaway;
-
-    public ParkService() {
-    }
-
-    public ParkService(ParkRepository parkRepository) {
-        this.parkRepository = parkRepository;
-    }
-
-    public ParkService(ParkRepository parkRepository,
-                       UserGateway userGateway,
-                       VehicleGateway vehicleGateway,
-                       TrafficTicketGetaway trafficTicketGetaway) {
+    public ParkService(ParkRepository parkRepository, UserGateway userGateway, VehicleGateway vehicleGateway, TrafficTicketGetaway trafficTicketGetaway) {
         this.parkRepository = parkRepository;
         this.userGateway = userGateway;
         this.vehicleGateway = vehicleGateway;
