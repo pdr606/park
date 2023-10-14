@@ -35,7 +35,7 @@ public class ParkService implements ParkGateway {
     private UserGateway userGateway;
 
     @Autowired
-    private VehicleGateway vehicleGateway;
+    private  VehicleGateway vehicleGateway;
 
     @Autowired
     private TrafficTicketGetaway trafficTicketGetaway;

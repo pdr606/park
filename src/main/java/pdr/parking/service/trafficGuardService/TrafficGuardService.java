@@ -12,9 +12,9 @@ import pdr.parking.service.userService.UserGateway;
 
 @Service
 public class TrafficGuardService implements TrafficGuardGetaway {
-    private ParkGateway parkGateway;
-    private UserGateway userGateway;
-    private TrafficTicketGetaway trafficTicketGetaway;
+    private final ParkGateway parkGateway;
+    private final UserGateway userGateway;
+    private final TrafficTicketGetaway trafficTicketGetaway;
     public TrafficGuardService(ParkGateway parkGateway,
                                UserGateway userGateway,
                                TrafficTicketGetaway trafficTicketGetaway)

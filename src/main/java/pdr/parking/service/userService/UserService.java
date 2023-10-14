@@ -78,8 +78,7 @@ public class UserService implements UserGateway {
 
     @Override
     public UserResponseDto findById(Long id) {
-        return UserMapper.toResponse(userRepository.findById(id).orElseThrow(() ->
-                new UserNotFoundException()
+        return UserMapper.toResponse(userRepository.findById(id).orElseThrow(UserNotFoundException::new
         ));
     }
 

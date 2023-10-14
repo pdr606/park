@@ -17,9 +17,9 @@ import java.util.List;
 @Service
 public class AdminService implements AdminGetaway {
 
-    private UserGateway userGateway;
-    private VehicleGateway vehicleGateway;
-    private ParkGateway parkGateway;
+    private final UserGateway userGateway;
+    private final VehicleGateway vehicleGateway;
+    private final ParkGateway parkGateway;
 
     public AdminService(UserGateway userGateway, VehicleGateway vehicleGateway,
                         ParkGateway parkGateway)
