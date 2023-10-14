@@ -9,6 +9,7 @@ import pdr.parking.entities.User;
 import pdr.parking.entities.Vehicle;
 import pdr.parking.service.userService.UserGateway;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface AdminGetaway{
@@ -17,6 +18,6 @@ public interface AdminGetaway{
     VehicleResponseDto findVehicleByPlate(String plate);
     List<VehicleResponseDto> findAllVehicles();
     List<Park> findAllParks();
-    void createTrafficGuard(UserCreateRequestDto userCreateRequestDto);
+    void createTrafficGuard(UserCreateRequestDto userCreateRequestDto) throws IOException;
     void deleteTrafficGuard(Long id);
 }

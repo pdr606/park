@@ -9,6 +9,7 @@ import pdr.parking.dto.vehicleDto.VehicleResponseDto;
 import pdr.parking.entities.User;
 import pdr.parking.service.adminService.AdminService;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -47,7 +48,7 @@ public class AdminController {
 
     @PostMapping(value = "/traffic-guard/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createTrafficGuard(@RequestBody UserCreateRequestDto userCreateRequestDto){
+    public void createTrafficGuard(@RequestBody UserCreateRequestDto userCreateRequestDto) throws IOException {
          adminService.createTrafficGuard(userCreateRequestDto);
     }
     @PostMapping(value = "/traffic-guard/delete")

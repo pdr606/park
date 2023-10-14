@@ -39,7 +39,8 @@ public class UserMapper {
                 user.getRole(),
                 user.getVehicles(),
                 user.getParks(),
-                user.getTrafficTickets());
+                user.getTrafficTickets())
+                ;
     }
 
     public static User toEntity(UserResponseDto userResponseDto){

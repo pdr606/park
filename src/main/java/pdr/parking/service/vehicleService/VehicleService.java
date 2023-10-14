@@ -9,6 +9,7 @@ import pdr.parking.entities.User;
 import pdr.parking.entities.Vehicle;
 import pdr.parking.exceptions.UserNotFoundException;
 import pdr.parking.exceptions.VehicleNotFoundException;
+import pdr.parking.mapper.UserMapper;
 import pdr.parking.mapper.VehicleMapper;
 import pdr.parking.repository.VehicleRepository;
 import pdr.parking.service.userService.UserService;
@@ -32,7 +33,7 @@ public class VehicleService implements VehicleGateway {
 
     @Override
     public void registerVehicle(VehicleRequestDto vehicleRequestDto) {
-        User user = userService.findById(vehicleRequestDto.userId());
+        User user = UserMapper.toEntity(userService.findById(vehicleRequestDto.userId()));
         vehicleRepository.save(new Vehicle(vehicleRequestDto.plate(),
                 vehicleRequestDto.foreignPlate(),
                 vehicleRequestDto.brand(),

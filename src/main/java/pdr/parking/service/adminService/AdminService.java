@@ -11,6 +11,7 @@ import pdr.parking.service.parkService.ParkGateway;
 import pdr.parking.service.userService.UserGateway;
 import pdr.parking.service.vehicleService.VehicleGateway;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -53,7 +54,7 @@ public class AdminService implements AdminGetaway {
     }
 
     @Override
-    public void createTrafficGuard(UserCreateRequestDto userCreateRequestDto) {
+    public void createTrafficGuard(UserCreateRequestDto userCreateRequestDto) throws IOException {
         userCreateRequestDto = new UserCreateRequestDto(
                 userCreateRequestDto.firstName(),
                 userCreateRequestDto.lastName(),
@@ -61,7 +62,8 @@ public class AdminService implements AdminGetaway {
                 userCreateRequestDto.email(),
                 userCreateRequestDto.telephone(),
                 userCreateRequestDto.password(),
-                Role.TRAFFIC_GUARD
+                Role.TRAFFIC_GUARD,
+                userCreateRequestDto.image()
         );
         userGateway.createUser(userCreateRequestDto);
     }

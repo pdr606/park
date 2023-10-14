@@ -29,7 +29,6 @@ public class User extends AbstractUser {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Park> parks = new ArrayList<>();
 
-
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<TrafficTicket> trafficTickets = new ArrayList<>();
 

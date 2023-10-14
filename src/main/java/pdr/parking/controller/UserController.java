@@ -11,6 +11,7 @@ import pdr.parking.entities.User;
 import pdr.parking.service.adminService.AdminService;
 import pdr.parking.service.userService.UserService;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody @Validated UserCreateRequestDto userCreateRequestDto){
+    public void save(@RequestBody @Validated UserCreateRequestDto userCreateRequestDto) throws IOException {
             userService.createUser(userCreateRequestDto);
     }
 

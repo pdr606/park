@@ -5,6 +5,7 @@ import pdr.parking.entities.TrafficTicket;
 import pdr.parking.entities.Vehicle;
 import pdr.parking.entities.enums.Role;
 
+import java.awt.*;
 import java.util.List;
 
 public record UserResponseDto(
@@ -19,5 +20,6 @@ public record UserResponseDto(
         List<Vehicle> vehicles,
         List<Park> parks,
         List<TrafficTicket> trafficTickets
+
 ) {
 }
