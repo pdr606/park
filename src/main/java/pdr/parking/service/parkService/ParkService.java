@@ -87,9 +87,11 @@ public class ParkService implements ParkGateway {
             Optional<Vehicle> optionalVehicle =
                     user.getVehicles().stream().filter(
                             v -> v.getPlate().equals(plate)).findFirst();
-            trafficTicketGetaway.
-            generateTrafficTicket(user,
-                    optionalVehicle.get());
+
+            if (optionalVehicle.isPresent()) {
+                Vehicle vehicle = optionalVehicle.get();
+                trafficTicketGetaway.generateTrafficTicket(user, vehicle);
+            }
         }
         return exist;
     }
