@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/v1/admins")
 public class AdminController {
 
-    private AdminService adminService;
+    private final AdminService adminService;
 
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
