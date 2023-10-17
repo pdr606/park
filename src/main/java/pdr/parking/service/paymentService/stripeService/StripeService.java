@@ -10,15 +10,22 @@ import org.springframework.stereotype.Service;
 import pdr.parking.dto.stripeDto.PaymentRequestChargeDto;
 import pdr.parking.dto.stripeDto.PaymentRequestGenerateTokenDto;
 import pdr.parking.service.paymentService.PaymentGetaway;
+import pdr.parking.service.userService.UserGateway;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 @Slf4j
+
 public class StripeService implements PaymentGetaway {
 
     @Value("${api.stripe.key}")
     private String stripeApiKey;
+    private UserGateway userGateway;
+    public StripeService(UserGateway userGateway){
+        this.userGateway = userGateway;
+    }
 
     @PostConstruct
     public void init(){
@@ -68,7 +75,7 @@ public class StripeService implements PaymentGetaway {
             if (charge.getPaid()) {
                 chargeRequest.setChargeId(charge.getId());
                 chargeRequest.setSuccess(true);
-
+                userGateway.addBalance(chargeRequest.getUserId(), Math.toIntExact(charge.getAmount()));
             }
             return chargeRequest;
         } catch (StripeException e) {

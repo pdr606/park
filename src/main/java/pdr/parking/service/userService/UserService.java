@@ -56,8 +56,10 @@ public class UserService implements UserGateway {
     }
 
     @Override
-    public void addBalance(User user, Integer balance) {
-
+    public void addBalance(Long userId, Integer balance) {
+        User user = findById(userId);
+        user.setBalance(balance);
+        userRepository.save(user);
     }
 
     @Override

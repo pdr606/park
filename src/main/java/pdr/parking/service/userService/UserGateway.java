@@ -11,7 +11,7 @@ import java.util.List;
 public interface UserGateway {
     void createUser(UserCreateRequestDto userCreateRequestDto) throws IOException;
     void updateData(User user, UserUpdateRequestDto userUpdateRequestDto);
-    void addBalance(User user, Integer balance);
+    void addBalance(Long userId, Integer balance);
     void deleteUser(Long id);
     User updateUser(Long id, UserUpdateRequestDto userUpdateRequestDto);
     User findByVehiclePlate(String plate);

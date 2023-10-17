@@ -14,5 +14,6 @@ public class PaymentRequestChargeDto {
     private Boolean success;
     private String message;
     private String chargeId;
+    private Long userId;
     private Map<String, Object> additionalInfo = new HashMap<>();
 }
