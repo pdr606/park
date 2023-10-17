@@ -1,6 +1,7 @@
 package pdr.parking.controller;
 
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,15 +11,11 @@ import pdr.parking.entities.Park;
 import pdr.parking.service.parkService.ParkService;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/v1/park")
 public class  ParkController {
 
-    @Autowired
     private ParkService parkService;
-
-    public ParkController(ParkService parkService) {
-        this.parkService = parkService;
-    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping

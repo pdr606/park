@@ -1,5 +1,6 @@
 package pdr.parking.service.userService;
 
+import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import pdr.parking.dto.userDto.UserCreateRequestDto;
@@ -13,14 +14,12 @@ import java.util.List;
 
 
 @Service
+@AllArgsConstructor
 public class UserService implements UserGateway {
 
     private final UserRepository userRepository;
-    public UserService(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
 
-
+    @Override
     public void createUser(UserCreateRequestDto userCreateRequestDto) {
         if(!userRepository.existsByCpf(userCreateRequestDto.cpf())){
             userRepository.save(new User(

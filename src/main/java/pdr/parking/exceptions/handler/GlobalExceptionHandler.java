@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pdr.parking.entities.User;
-import pdr.parking.exceptions.TraffIcGuardNotFoundException;
-import pdr.parking.exceptions.UserDuplicateException;
-import pdr.parking.exceptions.UserNotFoundException;
-import pdr.parking.exceptions.VehicleNotFoundException;
+import pdr.parking.exceptions.*;
 
 import java.time.Instant;
 import java.util.*;
@@ -19,6 +16,7 @@ import java.util.*;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(UserDuplicateException.class)
     public StandardError userDuplicateException(UserDuplicateException e, HttpServletRequest request){
         String error = "User duplicate";
@@ -32,6 +30,7 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({UserNotFoundException.class, VehicleNotFoundException.class, TraffIcGuardNotFoundException.class})
     public StandardError UserNotFoundException(UserNotFoundException e, HttpServletRequest request){
         String error = "Request not found";
@@ -41,6 +40,20 @@ public class GlobalExceptionHandler {
                 status.value(),
                 error,
                 e.getMessage(),
+                request.getRequestURI()
+        );
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(InternalServerErrorException.class)
+    public StandardError InternalServerErrorException(InternalServerErrorException e, HttpServletRequest request){
+        String error = e.getMessage();
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        return new StandardError(
+                Instant.now(),
+                status.value(),
+                error,
+                "Internal Server Error",
                 request.getRequestURI()
         );
     }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pdr.parking.dto.stripeDto.PaymentRequestChargeDto;
 import pdr.parking.dto.stripeDto.PaymentRequestGenerateTokenDto;
+import pdr.parking.exceptions.InternalServerErrorException;
 import pdr.parking.service.paymentService.PaymentGetaway;
 import pdr.parking.service.userService.UserGateway;
 
@@ -17,7 +18,6 @@ import java.util.Map;
 
 @Service
 @Slf4j
-
 public class StripeService implements PaymentGetaway {
 
     @Value("${api.stripe.key}")
@@ -49,9 +49,8 @@ public class StripeService implements PaymentGetaway {
                 model.setToken(token.getId());
             }
             return model;
-        } catch (StripeException e) {
-            log.error("StripeService (createCardToken)", e);
-            throw new RuntimeException(e.getMessage());
+        } catch (StripeException ex) {
+            throw new InternalServerErrorException(ex.getMessage());
         }
 
     }
@@ -78,9 +77,8 @@ public class StripeService implements PaymentGetaway {
                 userGateway.addBalance(chargeRequest.getUserId(), Math.toIntExact(charge.getAmount()));
             }
             return chargeRequest;
-        } catch (StripeException e) {
-            log.error("StripeService (charge)", e);
-            throw new RuntimeException(e.getMessage());
+        } catch (StripeException ex) {
+            throw new InternalServerErrorException(ex.getMessage());
         }
 
     }

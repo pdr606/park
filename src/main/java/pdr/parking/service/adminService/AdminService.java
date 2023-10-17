@@ -1,5 +1,6 @@
 package pdr.parking.service.adminService;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pdr.parking.dto.userDto.UserCreateRequestDto;
 import pdr.parking.dto.userDto.UserResponseDto;
@@ -16,19 +17,13 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class AdminService implements AdminGetaway {
 
     private final UserGateway userGateway;
     private final VehicleGateway vehicleGateway;
     private final ParkGateway parkGateway;
 
-    public AdminService(UserGateway userGateway, VehicleGateway vehicleGateway,
-                        ParkGateway parkGateway)
-    {
-        this.userGateway = userGateway;
-        this.vehicleGateway = vehicleGateway;
-        this.parkGateway = parkGateway;
-    }
     @Override
     public List<User> findAllUsers() {
         return userGateway.findAll();

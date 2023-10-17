@@ -1,6 +1,7 @@
 package pdr.parking.controller;
 
 
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pdr.parking.dto.userDto.UserCreateRequestDto;
@@ -14,14 +15,11 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/v1/admins")
 public class AdminController {
 
     private final AdminService adminService;
-
-    public AdminController(AdminService adminService) {
-        this.adminService = adminService;
-    }
 
     @GetMapping(value = "/users")
     @ResponseStatus(HttpStatus.OK)

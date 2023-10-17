@@ -11,14 +11,10 @@ import pdr.parking.repository.TrafficTicketRepository;
 import java.time.LocalDateTime;
 
 @Service
+@AllArgsConstructor
 public class TrafficTicketService implements TrafficTicketGetaway {
 
-
     private final TrafficTicketRepository trafficTicketRepository;
-
-    public TrafficTicketService(TrafficTicketRepository trafficTicketRepository) {
-        this.trafficTicketRepository = trafficTicketRepository;
-    }
 
     @Override
     public TrafficTicket generateTrafficTicket(User user, Vehicle vehicle){

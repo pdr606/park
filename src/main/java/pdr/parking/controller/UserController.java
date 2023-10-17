@@ -1,5 +1,6 @@
 package pdr.parking.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -16,13 +17,11 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/v1/users")
 public class UserController {
 
     private final  UserService userService;
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

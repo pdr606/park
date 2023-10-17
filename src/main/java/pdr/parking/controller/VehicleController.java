@@ -1,5 +1,6 @@
 package pdr.parking.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,10 +10,10 @@ import pdr.parking.dto.vehicleDto.VehicleRequestDto;
 import pdr.parking.service.vehicleService.VehicleService;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/v1/vehicle")
 public class VehicleController {
 
-    @Autowired
     private VehicleService vehicleService;
     
     @PostMapping

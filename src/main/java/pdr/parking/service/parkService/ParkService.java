@@ -1,6 +1,7 @@
 package pdr.parking.service.parkService;
 
 
+import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -24,19 +25,13 @@ import java.util.Optional;
 
 
 @Service
+@AllArgsConstructor
 public class ParkService implements ParkGateway {
 
     private final ParkRepository parkRepository;
     private final UserGateway userGateway;
     private final VehicleGateway vehicleGateway;
     private final TrafficTicketGetaway trafficTicketGetaway;
-
-    public ParkService(ParkRepository parkRepository, UserGateway userGateway, VehicleGateway vehicleGateway, TrafficTicketGetaway trafficTicketGetaway) {
-        this.parkRepository = parkRepository;
-        this.userGateway = userGateway;
-        this.vehicleGateway = vehicleGateway;
-        this.trafficTicketGetaway = trafficTicketGetaway;
-    }
 
     @Override
     public Park generatePark(ParkingRequestDto parkingRequestDto) {

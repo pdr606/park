@@ -1,5 +1,6 @@
 package pdr.parking.service.trafficGuardService;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pdr.parking.entities.TrafficTicket;
 import pdr.parking.entities.User;
@@ -9,18 +10,12 @@ import pdr.parking.service.trafficTicketService.TrafficTicketGetaway;
 import pdr.parking.service.userService.UserGateway;
 
 @Service
+@AllArgsConstructor
 public class TrafficGuardService implements TrafficGuardGetaway {
+
     private final ParkGateway parkGateway;
     private final UserGateway userGateway;
     private final TrafficTicketGetaway trafficTicketGetaway;
-    public TrafficGuardService(ParkGateway parkGateway,
-                               UserGateway userGateway,
-                               TrafficTicketGetaway trafficTicketGetaway)
-    {
-        this.parkGateway = parkGateway;
-        this.userGateway = userGateway;
-        this.trafficTicketGetaway = trafficTicketGetaway;
-    }
     @Override
     public void checkPlate(String plate) {
         parkGateway.checkPlate(plate);

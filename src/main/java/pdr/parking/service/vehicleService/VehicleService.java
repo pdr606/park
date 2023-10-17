@@ -1,5 +1,6 @@
 package pdr.parking.service.vehicleService;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -17,17 +18,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class VehicleService implements VehicleGateway {
-
 
     private final VehicleRepository vehicleRepository;
     private final UserGateway userGateway;
-
-
-    public VehicleService(VehicleRepository vehicleRepository, UserGateway userGateway) {
-        this.vehicleRepository = vehicleRepository;
-        this.userGateway = userGateway;
-    }
 
     @Override
     public void registerVehicle(VehicleRequestDto vehicleRequestDto) {
