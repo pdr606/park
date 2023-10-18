@@ -1,10 +1,7 @@
 package pdr.parking.dto.userDto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.web.multipart.MultipartFile;
 import pdr.parking.entities.enums.Role;
@@ -13,6 +10,7 @@ import javax.validation.constraints.Email;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class UserCreateRequestDto
 {
