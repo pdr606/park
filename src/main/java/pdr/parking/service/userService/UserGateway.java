@@ -1,5 +1,6 @@
 package pdr.parking.service.userService;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import pdr.parking.dto.userDto.UserCreateRequestDto;
 import pdr.parking.dto.userDto.UserResponseDto;
 import pdr.parking.dto.userDto.UserUpdateRequestDto;
@@ -13,6 +14,8 @@ public interface UserGateway {
     void updateData(User user, UserUpdateRequestDto userUpdateRequestDto);
     void addBalance(Long userId, Integer balance);
     void deleteUser(Long id);
+
+    UserDetails findByEmail(String email);
     User updateUser(Long id, UserUpdateRequestDto userUpdateRequestDto);
     User findByVehiclePlate(String plate);
     User findById(Long id);

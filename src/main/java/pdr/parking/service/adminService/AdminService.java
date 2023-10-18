@@ -52,14 +52,14 @@ public class AdminService implements AdminGetaway {
     @Override
     public void createTrafficGuard(UserCreateRequestDto userCreateRequestDto) throws IOException {
         userCreateRequestDto = new UserCreateRequestDto(
-                userCreateRequestDto.firstName(),
-                userCreateRequestDto.lastName(),
-                userCreateRequestDto.cpf(),
-                userCreateRequestDto.email(),
-                userCreateRequestDto.telephone(),
-                userCreateRequestDto.password(),
+                userCreateRequestDto.getFirstName(),
+                userCreateRequestDto.getLastName(),
+                userCreateRequestDto.getCpf(),
+                userCreateRequestDto.getEmail(),
+                userCreateRequestDto.getTelephone(),
+                userCreateRequestDto.getPassword(),
                 Role.TRAFFIC_GUARD,
-                userCreateRequestDto.image()
+                userCreateRequestDto.getImage()
         );
         userGateway.createUser(userCreateRequestDto);
     }

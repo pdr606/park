@@ -2,6 +2,7 @@ package pdr.parking.service.userService;
 
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import pdr.parking.dto.userDto.UserCreateRequestDto;
 import pdr.parking.dto.userDto.UserUpdateRequestDto;
@@ -21,18 +22,18 @@ public class UserService implements UserGateway {
 
     @Override
     public void createUser(UserCreateRequestDto userCreateRequestDto) {
-        if(!userRepository.existsByCpf(userCreateRequestDto.cpf())){
+        if(!userRepository.existsByCpf(userCreateRequestDto.getCpf())){
             userRepository.save(new User(
-                    userCreateRequestDto.firstName(),
-                    userCreateRequestDto.lastName(),
-                    userCreateRequestDto.cpf(),
-                    userCreateRequestDto.email(),
-                    userCreateRequestDto.telephone(),
-                    userCreateRequestDto.password(),
-                    userCreateRequestDto.role()));
+                    userCreateRequestDto.getFirstName(),
+                    userCreateRequestDto.getLastName(),
+                    userCreateRequestDto.getCpf(),
+                    userCreateRequestDto.getEmail(),
+                    userCreateRequestDto.getTelephone(),
+                    userCreateRequestDto.getPassword(),
+                    userCreateRequestDto.getRole()));
             return;
         }
-        throw new UserDuplicateException(userCreateRequestDto.cpf());
+        throw new UserDuplicateException(userCreateRequestDto.getCpf());
     }
 
     @Override
@@ -64,6 +65,15 @@ public class UserService implements UserGateway {
     @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public UserDetails findByEmail(String email) {
+        try {
+            return userRepository.findByEmail(email);
+        } catch (DataIntegrityViolationException ex){
+            throw new UserNotFoundException();
+        }
     }
 
     @Override
