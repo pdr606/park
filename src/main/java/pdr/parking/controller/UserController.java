@@ -24,12 +24,6 @@ public class UserController {
 
     private final  UserService userService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody @Valid UserCreateRequestDto userCreateRequestDto) throws IOException {
-            userService.createUser(userCreateRequestDto);
-    }
-
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserResponseDto search(@PathVariable Long id){
