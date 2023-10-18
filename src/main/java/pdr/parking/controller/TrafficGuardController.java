@@ -8,13 +8,13 @@ import pdr.parking.service.trafficGuardService.TrafficGuardService;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/api/v1/traffic-guard")
+@RequestMapping(value = "/api/v1/traffic-guards")
 public class TrafficGuardController {
 
     private TrafficGuardService trafficGuardService;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "{plate}")
+    @PostMapping(value = "/{plate}")
     public void generateTrafficTicket(@PathVariable String plate){
         trafficGuardService.generateTrafficTicket(plate);
     }

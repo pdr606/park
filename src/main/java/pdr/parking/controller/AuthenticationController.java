@@ -1,14 +1,11 @@
 package pdr.parking.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pdr.parking.dto.authenticationDto.LoginResponseTokenDto;
 import pdr.parking.dto.userDto.UserCreateRequestDto;
 import pdr.parking.dto.userDto.UserLoginDto;
@@ -23,27 +20,21 @@ import java.io.IOException;
 @AllArgsConstructor
 public class AuthenticationController {
 
-    final TokenService tokenService;
-    final AuthenticationManager authenticationManager;
-    final UserGateway userGateway;
-
+    private final TokenService tokenService;
+    private final AuthenticationManager authenticationManager;
+    private final UserGateway userGateway;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseTokenDto> login(@RequestBody UserLoginDto userLoginDto){
+    public LoginResponseTokenDto login(@RequestBody UserLoginDto userLoginDto){
         var usernamePassword = new UsernamePasswordAuthenticationToken(userLoginDto.email(), userLoginDto.password());
         var auth = authenticationManager.authenticate(usernamePassword);
-        var token = tokenService.generateToken((User) auth.getPrincipal());
-        return ResponseEntity.ok(new LoginResponseTokenDto(token));
+        return new LoginResponseTokenDto(tokenService.generateToken((User) auth.getPrincipal()));
     }
 
-
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody UserCreateRequestDto userCreateRequestDto) throws IOException {
-        if(userGateway.findByEmail(userCreateRequestDto.getEmail()) != null) return ResponseEntity.badRequest().build();
-        String encryptedPassword = new BCryptPasswordEncoder().encode(userCreateRequestDto.getPassword());
-        userCreateRequestDto.setPassword(encryptedPassword);
+    public void register(@RequestBody UserCreateRequestDto userCreateRequestDto) throws IOException {
         userGateway.createUser(userCreateRequestDto);
-        return  ResponseEntity.ok().build();
     }
 
 }

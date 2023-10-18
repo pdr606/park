@@ -3,6 +3,7 @@ package pdr.parking.service.userService;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pdr.parking.dto.userDto.UserCreateRequestDto;
 import pdr.parking.dto.userDto.UserUpdateRequestDto;
@@ -10,6 +11,7 @@ import pdr.parking.exceptions.UserDuplicateException;
 import pdr.parking.exceptions.UserNotFoundException;
 import pdr.parking.entities.User;
 import pdr.parking.repository.UserRepository;
+import pdr.parking.service.authorizationService.AuthorizationService;
 
 import java.util.List;
 
@@ -22,7 +24,11 @@ public class UserService implements UserGateway {
 
     @Override
     public void createUser(UserCreateRequestDto userCreateRequestDto) {
+        findByEmail(userCreateRequestDto.getEmail());
         if(!userRepository.existsByCpf(userCreateRequestDto.getCpf())){
+            userCreateRequestDto.setPassword(AuthorizationService.encryptedPassword(
+                    userCreateRequestDto.getPassword()
+            ));
             userRepository.save(new User(
                     userCreateRequestDto.getFirstName(),
                     userCreateRequestDto.getLastName(),

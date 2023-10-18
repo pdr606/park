@@ -50,7 +50,7 @@ public class AdminController {
     public void createTrafficGuard(@RequestBody UserCreateRequestDto userCreateRequestDto) throws IOException {
          adminService.createTrafficGuard(userCreateRequestDto);
     }
-    @PostMapping(value = "/traffic-guard/delete")
+    @DeleteMapping(value = "/traffic-guard/delete/{id}")
     public void deleteTrafficRider(@PathVariable Long id){
         adminService.deleteTrafficGuard(id);
     }

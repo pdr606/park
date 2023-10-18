@@ -57,4 +57,18 @@ public class GlobalExceptionHandler {
                 request.getRequestURI()
         );
     }
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(UnauthorizedException.class)
+    public StandardError UnauthorizedException(UnauthorizedException e, HttpServletRequest request){
+        String error = e.getMessage();
+        HttpStatus status = HttpStatus.FORBIDDEN;
+                return new StandardError(
+                        Instant.now(),
+                        status.value(),
+                        error,
+                        "Unauthorized user",
+                        request.getRequestURI()
+                );
+    }
 }

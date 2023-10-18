@@ -50,6 +50,8 @@ public class User extends AbstractUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role == Role.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        if(this.role == Role.USER) return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        if(this.role == Role.TRAFFIC_GUARD) return List.of(new SimpleGrantedAuthority("ROLE_TRAFFIC_GUARD"));
         return null;
     }
 

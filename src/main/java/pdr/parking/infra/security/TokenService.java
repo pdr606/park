@@ -6,6 +6,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pdr.parking.entities.User;
+import pdr.parking.exceptions.UnauthorizedException;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -43,7 +44,7 @@ public class TokenService {
                     .getSubject();
 
         } catch (JWTCreationException ex){
-            return "";
+            throw new UnauthorizedException(ex.getMessage());
         }
     }
         private Instant genExpirationDate(){

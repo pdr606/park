@@ -10,7 +10,7 @@ import pdr.parking.mapper.StripeMapper;
 import pdr.parking.service.paymentService.stripeService.StripeService;
 
 @RestController
-@RequestMapping("/api/v1/payment")
+@RequestMapping("/api/v1/stripe")
 @AllArgsConstructor
 public class StripeController {
 
