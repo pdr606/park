@@ -18,4 +18,11 @@ public class TrafficGuardController {
     public void generateTrafficTicket(@PathVariable String plate){
         trafficGuardService.generateTrafficTicket(plate);
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/{plate}")
+    public boolean searchPlate(@PathVariable String plate){
+        return trafficGuardService.checkPlate(plate);
+    }
+
 }

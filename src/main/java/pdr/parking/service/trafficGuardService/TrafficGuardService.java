@@ -17,10 +17,9 @@ public class TrafficGuardService implements TrafficGuardGetaway {
     private final UserGateway userGateway;
     private final TrafficTicketGetaway trafficTicketGetaway;
     @Override
-    public void checkPlate(String plate) {
-        parkGateway.checkPlate(plate);
+    public boolean checkPlate(String plate) {
+        return parkGateway.checkPlate(plate);
     }
-
 
     @Override
     public TrafficTicket generateTrafficTicket(String plate) {
