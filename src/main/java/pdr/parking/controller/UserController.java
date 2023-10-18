@@ -13,6 +13,7 @@ import pdr.parking.mapper.UserDtoMapper;
 import pdr.parking.service.adminService.AdminService;
 import pdr.parking.service.userService.UserService;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody @Validated UserCreateRequestDto userCreateRequestDto) throws IOException {
+    public void save(@RequestBody @Valid UserCreateRequestDto userCreateRequestDto) throws IOException {
             userService.createUser(userCreateRequestDto);
     }
 

@@ -13,6 +13,7 @@ import pdr.parking.entities.User;
 import pdr.parking.infra.security.TokenService;
 import pdr.parking.service.userService.UserGateway;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 @RestController
@@ -25,7 +26,7 @@ public class AuthenticationController {
     private final UserGateway userGateway;
 
     @PostMapping("/login")
-    public LoginResponseTokenDto login(@RequestBody UserLoginDto userLoginDto){
+    public LoginResponseTokenDto login(@RequestBody @Valid UserLoginDto userLoginDto){
         var usernamePassword = new UsernamePasswordAuthenticationToken(userLoginDto.email(), userLoginDto.password());
         var auth = authenticationManager.authenticate(usernamePassword);
         return new LoginResponseTokenDto(tokenService.generateToken((User) auth.getPrincipal()));
@@ -33,8 +34,7 @@ public class AuthenticationController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/register")
-    public void register(@RequestBody UserCreateRequestDto userCreateRequestDto) throws IOException {
+    public void register(@RequestBody @Valid UserCreateRequestDto userCreateRequestDto) throws IOException {
         userGateway.createUser(userCreateRequestDto);
     }
-
 }

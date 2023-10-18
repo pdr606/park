@@ -10,6 +10,7 @@ import pdr.parking.entities.Park;
 
 import pdr.parking.entities.User;
 import pdr.parking.entities.Vehicle;
+import pdr.parking.producer.ParkProducer;
 import pdr.parking.repository.ParkRepository;
 import pdr.parking.service.trafficTicketService.TrafficTicketGetaway;
 
@@ -32,6 +33,7 @@ public class ParkService implements ParkGateway {
     private final UserGateway userGateway;
     private final VehicleGateway vehicleGateway;
     private final TrafficTicketGetaway trafficTicketGetaway;
+    private final ParkProducer parkProducer;
 
     @Override
     public Park generatePark(ParkingRequestDto parkingRequestDto) {
@@ -67,6 +69,10 @@ public class ParkService implements ParkGateway {
             if (optionalVehicle.isPresent()) {
                 Vehicle vehicle = optionalVehicle.get();
                 trafficTicketGetaway.generateTrafficTicket(user, vehicle);
+                return false;
+            }
+            if(optionalVehicle.isEmpty()){
+                parkProducer.generateDetranTrafficMult(plate);
             }
         }
         return exist;

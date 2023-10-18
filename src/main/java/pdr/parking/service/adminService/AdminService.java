@@ -58,8 +58,7 @@ public class AdminService implements AdminGetaway {
                 userCreateRequestDto.getEmail(),
                 userCreateRequestDto.getTelephone(),
                 userCreateRequestDto.getPassword(),
-                Role.TRAFFIC_GUARD,
-                userCreateRequestDto.getImage()
+                Role.TRAFFIC_GUARD
         );
         userGateway.createUser(userCreateRequestDto);
     }
